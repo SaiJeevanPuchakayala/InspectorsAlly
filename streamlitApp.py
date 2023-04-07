@@ -33,7 +33,7 @@ st.caption(
 )
 
 st.write(
-    "Try clicking a product image and watch how an AI Model will detect the anomaly."
+    "Try clicking a product image and watch how an AI Model will classify it between Good / Anomaly."
 )
 
 with st.sidebar:
@@ -45,7 +45,7 @@ with st.sidebar:
     )
 
     st.write(
-        "This advanced inspection app uses state-of-the-art computer vision algorithms and machine learning models to perform visual quality control inspections with unparalleled accuracy and speed. InspectorsAlly is capable of identifying even the slightest defects, such as scratches, dents, discolorations, and more."
+        "This advanced inspection app uses state-of-the-art computer vision algorithms and deep learning models to perform visual quality control inspections with unparalleled accuracy and speed. InspectorsAlly is capable of identifying even the slightest defects, such as scratches, dents, discolorations, and more on the Leather Product Images."
     )
 
 
@@ -120,11 +120,13 @@ def Anomaly_Detection(image_path, root):
     # Get the predicted class label and probability
     predicted_class_index = np.argmax(predicted_probabilities)
     predicted_class = class_names[predicted_class_index]
+    prediction_sentence = "Congratulations! Your product has been classified as a 'Good' item with no anomalies detected in the inspection images."
+    if predicted_class != "Good":
+        prediction_sentence = "We're sorry to inform you that our AI-based visual inspection system has detected an anomaly in your product."
+    return prediction_sentence
 
-    return predicted_class
 
-
-submit = st.button(label="Submit Product Image")
+submit = st.button(label="Submit a Leather Product Image")
 if submit:
     st.subheader("Output")
     if input_method == "File Uploader":
